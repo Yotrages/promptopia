@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from "react"
 import PromptCard from './PromptCard'
-import { useSession } from "/next-auth/react"
+import { useSession } from "next-auth/react"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (

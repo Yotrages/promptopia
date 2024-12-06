@@ -1,4 +1,5 @@
-'use client';
+
+"use client";
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -12,13 +13,10 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (!session?.user?.id) return; // Ensure session is loaded
+      if (!session?.user?.id) return;
 
       try {
         const response = await fetch(`/api/users/${session.user.id}/posts`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch posts");
-        }
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -27,9 +25,9 @@ const MyProfile = () => {
     };
 
     fetchPosts();
-  }, [session?.user?.id]); // Add session.user.id as a dependency
+  }, [session?.user?.id]);
 
-  const handleEdit = async (post) => {
+  const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post.id}`);
   };
 

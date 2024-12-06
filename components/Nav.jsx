@@ -133,4 +133,3 @@ const Nav = () => {
 };
 
 export default Nav;
-/api/auth/callback/provider

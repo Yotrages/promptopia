@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -8,13 +7,20 @@ import Profile from "@components/Profile";
 
 const MyProfile = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [posts, setPosts] = useState([]);
+
+  // Prevent rendering until session is ready
+  if (status === "loading") return <div>Loading...</div>;
+
+  // Redirect to login if no session
+  if (!session?.user) {
+    router.push("/login");
+    return null;
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (!session?.user?.id) return;
-
       try {
         const response = await fetch(`/api/users/${session.user.id}/posts`);
         const data = await response.json();
@@ -24,7 +30,7 @@ const MyProfile = () => {
       }
     };
 
-    fetchPosts();
+    if (session.user.id) fetchPosts();
   }, [session?.user?.id]);
 
   const handleEdit = (post) => {

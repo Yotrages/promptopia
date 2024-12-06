@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from "react"
 import PromptCard from './PromptCard'
+import { useSession } from "/next-auth/react"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -16,7 +17,9 @@ const PromptCardList = ({ data, handleTagClick }) => {
 }
 const Feed = () => {
 
-  const [searchText, setsearchText] = useState(second)
+  const {data: session} = useSession()
+
+  const [searchText, setsearchText] = useState('')
   const [posts, setPosts] = useState([])
   const handleSearchChange = (e) => {
 

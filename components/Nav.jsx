@@ -131,9 +131,3 @@ const Nav = () => {
     </nav>
   );
 };
-
-<<<<<<< HEAD
-export default Nav;
-=======
-export default Nav;
->>>>>>> ee3aae320026e3ef214b862b7655b75d321efae5

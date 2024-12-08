@@ -51,7 +51,7 @@ const Nav = () => {
                 src={session.user.image}
                 width={40}
                 height={40}
-                
+                className="rounded-full"
               /> 
             </Link>
           </div>

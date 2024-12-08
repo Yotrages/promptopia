@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; // Use from "next/navigation" instead
 import Profile from "@components/Profile";
 
 const MyProfile = () => {
@@ -10,19 +10,17 @@ const MyProfile = () => {
   const { data: session, status } = useSession();
   const [posts, setPosts] = useState([]);
 
-  // Prevent rendering until session is ready
-  if (status === "loading") return <div>Loading...</div>;
-
-  // Redirect to login if no session
-  if (!session?.user) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    // Redirect to login if no session after the component has mounted
+    if (status === "authenticated" && !session?.user) {
+      router.push("/login");
+    }
+  }, [status, session, router]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`/api/users/${session.user.id}/posts`);
+        const response = await fetch(`/api/users/${session?.user?.id}/posts`);
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -30,7 +28,7 @@ const MyProfile = () => {
       }
     };
 
-    if (session.user.id) fetchPosts();
+    if (session?.user?.id) fetchPosts();
   }, [session?.user?.id]);
 
   const handleEdit = (post) => {
@@ -52,6 +50,8 @@ const MyProfile = () => {
       }
     }
   };
+
+  if (status === "loading") return <div>Loading...</div>; // Show loading state while session is being loaded
 
   return (
     <Profile

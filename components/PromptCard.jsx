@@ -17,7 +17,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   };
   return (
     <div className="prompt-card">
-      <div className="flex justify-between items-start gap-5">
+      <div className="flex justify-between items-center gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
             src={post.creator.image}
@@ -45,6 +45,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             }
             width={12}
             height={12}
+            className="bg-black"
           />
         </div>
       </div>

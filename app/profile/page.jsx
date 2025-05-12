@@ -12,8 +12,8 @@ const MyProfile = () => {
 
   useEffect(() => {
     // Redirect to login if no session after the component has mounted
-    if (status === "authenticated" && !session?.user) {
-      router.push("/login");
+    if (status === "unauthenticated" && !session?.user) {
+      router.push("/");
     }
   }, [status, session, router]);
 
@@ -55,7 +55,7 @@ const MyProfile = () => {
 
   return (
     <Profile
-      name="My"
+      name={session?.user?.name}
       desc="Welcome to your personalized profile page"
       data={posts}
       handleEdit={handleEdit}

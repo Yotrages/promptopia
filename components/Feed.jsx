@@ -6,13 +6,15 @@ const PromptCardList = ({ data = [], handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
       {data.length > 0 ? (
-        data.map((post) => (
+        <div>
+          {data.map((post, index) => (
           <PromptCard
-            key={post._id}
+            key={index}
             post={post}
             handleTagClick={handleTagClick}
           />
-        ))
+        ))}
+        </div>
       ) : (
         <p>No posts available</p>
       )}
@@ -32,7 +34,7 @@ const Feed = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch('/api/prompt');
-        const data = await response.json();
+        const data = response.json();
         setPosts(data || []); // Ensure posts is always an array
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -51,12 +53,12 @@ const Feed = () => {
           value={searchText}
           onChange={handleSearchChange}
           required
-          className="search_input peer"
+          className="search_input peer focus:outline-none"
         />
       </form>
 
       <PromptCardList 
-        data={posts} 
+        data={posts || []} 
         handleTagClick={() => {}} 
       />
     </section>

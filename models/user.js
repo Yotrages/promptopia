@@ -16,7 +16,7 @@ const userSchema = new Schema({
     },
     image: {
         type: String,
-        default: '', // Optional: you can set a default value
+        default: '', 
     },
 });
 
